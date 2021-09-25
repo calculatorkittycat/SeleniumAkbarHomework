@@ -61,6 +61,11 @@ public class WebOrderFunctionalityTests {
         //TODO: get all product name from first column
         WebOrderUtility.getAllProducts();
 
+        /**
+         * expected: java.lang.String@3bd7f8dc<[MyMoney, FamilyAlbum, ScreenSaver]>
+         * but was: java.util.ArrayList@2f2bf0e2<[MyMoney, FamilyAlbum, ScreenSaver]>
+         */
+
         //TODO: `verify` they are : `MyMoney`, `FamilyAlbum` , `ScreenSaver`
         assertEquals("[MyMoney, FamilyAlbum, ScreenSaver]",WebOrderUtility.getAllProducts());
 
