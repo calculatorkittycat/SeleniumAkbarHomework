@@ -119,6 +119,7 @@ public class WebOrderUtility {
 
         if (tabName.equalsIgnoreCase("View all orders")) {
             Driver.getDriver().findElement(By.xpath("//ul[@id='ctl00_menu']/li[1]/a")).click();
+
         }
 
         if (tabName.equalsIgnoreCase("View all products")) {
@@ -175,7 +176,6 @@ public class WebOrderUtility {
         selectSideBarTab("view all products");
 
 
-
         WebElement firstCol = Driver.getDriver().findElement(By.xpath("//table/tbody/tr/td/div/table/tbody/tr[2]/td"));
         WebElement secondCol = Driver.getDriver().findElement(By.xpath("//table/tbody/tr/td/div/table/tbody/tr[3]/td"));
         WebElement thirdCol = Driver.getDriver().findElement(By.xpath("//table/tbody/tr/td/div/table/tbody/tr[4]/td"));
@@ -198,7 +198,7 @@ public class WebOrderUtility {
     }
 
 
-    public static int getUnitPriceFormForm(String productName){
+    public static int getUnitPriceFormForm(String productName) {
         selectSideBarTab("order");
 
         WebElement dropdown = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_ddlProduct"));
@@ -206,7 +206,7 @@ public class WebOrderUtility {
         Select selectObj = new Select(dropdown);
         selectObj.selectByVisibleText(productName);
 
-        Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtQuantity")).sendKeys(Keys.BACK_SPACE+"3");
+        Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtQuantity")).sendKeys(Keys.BACK_SPACE + "3");
 
         Driver.getDriver().findElement(By.xpath("//li/input[@type='submit']")).click();
 
@@ -215,19 +215,13 @@ public class WebOrderUtility {
 
 
         int pricePerUnitOutput = Integer.parseInt(priceString);
-        System.out.println("pricePerUnitOutput = " + pricePerUnitOutput);
+        System.out.println("pricePerUnitNumVal = " + pricePerUnitOutput);
         return pricePerUnitOutput;
 
     }
 
-    /**
-     * ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR-ERROR
-     * @param productName
-     * @param quantity
-     * @return
-     */
 
-    public static int getDiscountFromForm(String productName, int quantity){
+    public static int getDiscountFromForm(String productName, int quantity) {//, int quantity
         selectSideBarTab("order");
 
         WebElement dropdown = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_ddlProduct"));
@@ -235,23 +229,143 @@ public class WebOrderUtility {
         Select selectObj = new Select(dropdown);
         selectObj.selectByVisibleText(productName);
 
-        String s = String.valueOf(quantity);
-        System.out.println(s);
+        //String s = String.valueOf(quantity);
+        //System.out.println(s);
 
         WebElement t1 = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtQuantity"));
         t1.sendKeys(Keys.BACK_SPACE);
-        t1.sendKeys(s);
+        t1.sendKeys("" + quantity);
 
         Driver.getDriver().findElement(By.xpath("//li/input[@type='submit']")).click();
 
         WebElement discount = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtDiscount"));
-        String discountString = discount.getAttribute("text");
+        String discountString = discount.getAttribute("value");
 
         int discountStringNumVal = Integer.parseInt(discountString);
-        System.out.println("discountStringNumVal = " + discountStringNumVal);
+        System.out.println("discountNumVal = " + discountStringNumVal);
         return discountStringNumVal;
 
     }
+
+    public static int calculateTotal(String productName, int quantity) {
+        selectSideBarTab("order");
+
+        WebElement dropdown = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_ddlProduct"));
+
+        Select selectObj = new Select(dropdown);
+        selectObj.selectByVisibleText(productName);
+
+        //String s = String.valueOf(quantity);
+        //System.out.println(s);
+
+        WebElement t1 = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtQuantity"));
+        t1.sendKeys(Keys.BACK_SPACE);
+        t1.sendKeys("" + quantity);
+
+        Driver.getDriver().findElement(By.xpath("//li/input[@type='submit']")).click();
+
+        WebElement total = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtTotal"));
+        String discountString = total.getAttribute("value");
+
+        int totalStringNumVal = Integer.parseInt(discountString);
+        System.out.println("totalNumVal = " + totalStringNumVal);
+        return totalStringNumVal;
+
+    }
+
+    public static int getExpectedDiscount(String productName, int quantity) {
+
+        selectSideBarTab("order");
+        int discount = 0;
+
+        WebElement dropdownElm = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_ddlProduct"));
+        Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtQuantity")).sendKeys(Keys.BACK_SPACE + "" + quantity);
+        Select selectObj = new Select(dropdownElm);
+        Driver.getDriver().findElement(By.xpath("//li/input[@type='submit']")).click();
+        if (quantity >= 10) {
+            if (productName.equalsIgnoreCase("MyMoney")) {
+                selectObj.selectByVisibleText("MyMoney");
+                discount = 8;
+            } else if (productName.equalsIgnoreCase("FamilyAlbum")) {
+                selectObj.selectByVisibleText("FamilyAlbum");
+                discount = 15;
+            } else if (productName.equalsIgnoreCase("ScreenSaver")) {
+                selectObj.selectByVisibleText("ScreenSaver");
+                discount = 10;
+            }
+        } else {
+            discount = 0;
+        }
+        System.out.println("discount for " + quantity + " " + productName + " is " + discount + "%");
+        return discount;
+
+    }
+
+
+    public static void enterAddressInfo() {
+        selectSideBarTab("order");
+
+        WebElement customerName = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtName"));
+        WebElement street = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox2"));
+        WebElement city = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox3"));
+        WebElement state = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox4"));
+        WebElement zip = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox5"));
+
+        customerName.sendKeys("Ivanna Humpalot");
+        street.sendKeys("15836 8th ave sw");
+        city.sendKeys("Burien");
+        state.sendKeys("Washington");
+        zip.sendKeys("98166");
+
+    }
+
+    public static void enterPaymentInfo() {
+
+        WebElement radioButtonVisa = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_cardList_0"));
+        WebElement radioButtonMasterCard = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_cardList_1"));
+        WebElement radioButtonAmericanExpress = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_cardList_2"));
+
+        WebElement cardNumber = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox6"));
+        WebElement expirationDate = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox1"));
+
+/*
+        if (
+                !Driver.getDriver().getCurrentUrl().equals("http://secure.smartbearsoftware.com/samples/TestComplete11/WebOrders/Process.aspx")) {
+            selectSideBarTab("order");
+            radioButtonAmericanExpress.click();
+            cardNumber.sendKeys("1234342123144213");
+            expirationDate.sendKeys("04/24");
+
+        }else{
+ */
+
+        radioButtonAmericanExpress.click();
+        cardNumber.sendKeys("1234342123144213");
+        expirationDate.sendKeys("04/24");
+
+
+    }
+
+    public static boolean submitAndVerify() {
+        Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_InsertButton")).click();
+        boolean result = false;
+        WebElement hasBeenProcessed = Driver.getDriver().findElement(By.xpath("//strong"));
+
+        if (hasBeenProcessed.getText().equals("New order has been successfully added.")) {
+            result = true;
+        } else {
+
+            result = false;
+        }
+        return result;
+
+    }
+}
+
+
+
+
+
 
     // so now we have Driver class that generate Single WebDriver instance
     // we can use it anywhere here in this method
@@ -260,4 +374,3 @@ public class WebOrderUtility {
 
 
 
-}

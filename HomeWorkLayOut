@@ -119,10 +119,12 @@ Create a Test class `WebOrderFunctionalityTests` and create below test methods
 1. `testCheckAllButton`
    1. login with correct credentials
    2. use the method you created earlier to check all checkbox
-   3. assert it actuall checked all the checkbox (you did this logic in method above so assertTrue this method call)
+   3. assert it actual checked all the checkbox (you did this logic in method above so assertTrue this method call)
+
 2. `testUncheckAllButton`
    1. use the method you created earlier to uncheck all checkbox
-   2. assert it actuall unchecked all the checkbox (you did this logic in method above so assertTrue this method call)
+   2. assert it actual unchecked all the checkbox (you did this logic in method above so assertTrue this method call)
+
 3. `testAllProductName`
    1. login with correct credentials
    2. go to view all product page

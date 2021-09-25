@@ -1,7 +1,8 @@
-package com.cybertek.tests.day09_explict_wait_methods_singleton_driver;
+package com.cybertek.tests.homeWorkTests;
 
 import com.cybertek.utility.WebOrderUtility;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 
 public class TestBench {
 
@@ -25,6 +26,14 @@ public class TestBench {
         WebOrderUtility.getUnitPriceFormForm("FamilyAlbum");
 
         WebOrderUtility.getDiscountFromForm("ScreenSaver",50);
+
+        WebOrderUtility.calculateTotal("MyMoney",50);
+
+        WebOrderUtility.getExpectedDiscount("MyMoney",50);
+
+        WebOrderUtility.enterAddressInfo();
+
+        WebOrderUtility.enterPaymentInfo();
 
     }
 }
