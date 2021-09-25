@@ -10,7 +10,8 @@ public class WebOrderTest extends TestBase {
     @Test
     public void testLogin(){
 
-        driver.get("http://secure.smartbearsoftware.com/samples/TestComplete11/WebOrders/Login.aspx");
+        //driver.get("http://secure.smartbearsoftware.com/samples/TestComplete11/WebOrders/Login.aspx");
+        WebOrderUtility.openWebOrderApp();
 
 //        // enter username
 //        driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
@@ -21,19 +22,20 @@ public class WebOrderTest extends TestBase {
 
 //        WebOrderUtility.login(driver);
 
-        WebOrderUtility.login(driver, "Tester","test");
 
-        System.out.println("is at order page  " +   WebOrderUtility.isAtOrderPage(driver)    );
+        WebOrderUtility.login("Tester","test");
 
-        BrowserUtil.waitFor(2);
-
-        WebOrderUtility.logout(driver);
+        System.out.println("is at order page  " +   WebOrderUtility.isAtOrderPage()    );
 
         BrowserUtil.waitFor(2);
 
-        WebOrderUtility.login(driver,"bla","bla");
+        WebOrderUtility.logout();
 
-        System.out.println("is at order page" +   WebOrderUtility.isAtOrderPage(driver)    );
+        BrowserUtil.waitFor(2);
+
+        WebOrderUtility.login("bla","bla");
+
+        System.out.println("is at order page" +   WebOrderUtility.isAtOrderPage()    );
 
         BrowserUtil.waitFor(4);
 
