@@ -311,11 +311,11 @@ public class WebOrderUtility {
         WebElement state = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox4"));
         WebElement zip = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_TextBox5"));
 
-        customerName.sendKeys("Ivanna Humpalot");
-        street.sendKeys("15836 8th ave sw");
-        city.sendKeys("Burien");
-        state.sendKeys("Washington");
-        zip.sendKeys("98166");
+        customerName.sendKeys("Joe Momma");
+        street.sendKeys("15837 8th ave sw");
+        city.sendKeys("Burienz");
+        state.sendKeys("Washingtonz");
+        zip.sendKeys("98165");
 
     }
 
@@ -340,8 +340,8 @@ public class WebOrderUtility {
  */
 
         radioButtonAmericanExpress.click();
-        cardNumber.sendKeys("1234342123144213");
-        expirationDate.sendKeys("04/24");
+        cardNumber.sendKeys("1234342123144214");
+        expirationDate.sendKeys("04/23");
 
 
     }

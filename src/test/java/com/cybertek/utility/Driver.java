@@ -1,6 +1,7 @@
 package com.cybertek.utility;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -20,7 +21,8 @@ public class Driver {
         if(obj == null){
             WebDriverManager.chromedriver().setup();
             obj = new ChromeDriver();
-            obj.manage().window().maximize();
+            //obj.manage().window().maximize();
+            obj.manage().window().setPosition(new Point(1750,0));
 //            System.out.println("One and only created for the first time");
             return obj ;
         }else{
